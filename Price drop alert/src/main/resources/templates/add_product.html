@@ -19,13 +19,13 @@
 
   <b>Add Product</b>
   <br>
-  <form action="" th:action="@{/added_product}" method="post" th:object="${user}">
+  <form action="" th:action="@{/user/added-product}" method="post" th:object="${user}">
     <label>Product Url:- </label>
     <input type="text" name="p_url" required/>
     <br>
 
     <label>Threshold Price :- </label>
-    <input type="text" name="p_price" required/><br>
+    <input type="number" name="t_price" required/><br>
 
 
     <button type="submit">Submit</button>
