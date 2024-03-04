@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -74,6 +72,26 @@ public class UserController {
     public String DeleteProduct(@PathVariable("productID")String productID){
         int pid = Integer.parseInt(productID);
         productRepository.deleteById(pid);
+        return "redirect:/user/product-list";
+    }
+
+    @RequestMapping("/editProduct/{productID}")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public String editForm(@PathVariable("productID") String productID,Model model){
+        int pid = Integer.parseInt(productID);
+        Product product = this.productRepository.getReferenceById(pid);
+        model.addAttribute("product",product);
+        return "edit";
+    }
+
+
+    @PostMapping("/update")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public String Update(@ModelAttribute Product product, @RequestParam("p_id") Integer pid,Principal principal){
+        product.setP_id(pid);
+        User user = this.userRepository.getUserByUserName(principal.getName());
+        product.setUser(user);
+        productRepository.save(product);
         return "redirect:/user/product-list";
     }
 

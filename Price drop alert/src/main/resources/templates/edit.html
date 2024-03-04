@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+</head>
+<body>
+<section style="margin: auto; width: 400px; margin-top: 100px">
+
+    <div th:if="${session.message}"   class="alert alert-primary text-center" th:classappend="${session.message.type}" role="alert">
+        <p class="text-center" th:text="${session.message.content}"></p>
+        <div th:if="${session.message != null}">
+            <!-- I consumed the message -->
+            <div th:text="${@sessionHelper.removeMessageFromSession()}">
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <b>EDIT Product</b>
+    <br>
+    <form action="" th:action="@{/user/update} " method="post" th:object="${product}">
+
+        <input type="hidden" name="p_id" th:value="${product.getP_id()} ">
+
+        <label>Product Url:- </label>
+        <input type="text" th:value="${product.p_url}" name="p_url" required/>
+        <br>
+
+        <label>Threshold Price :- </label>
+        <input type="number" th:value="${product.t_price}" name="t_price" required/><br>
+
+
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+
+    </form>
+    <br>
+    <br>
+    <a th:href="@{/user/dashboard}"> Dashboard </a>
+</section>
+</body>
+</html>
