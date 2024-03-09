@@ -46,4 +46,24 @@ public class AdminController {
         return "Product deleted successfully";
     }
 
+    @GetMapping("/getproductbyname/{name}")
+    public Productapi getProductByName(@PathVariable String name) {
+        Optional<Productapi> optionalProduct = apiRepository.findByProductName(name);
+        if (optionalProduct.isPresent()) {
+            return optionalProduct.get();
+        } else {
+            throw new RuntimeException("Product not found with name: " + name);
+        }
+    }
+    @GetMapping("/getproductbyurl/{url}")
+    public Productapi getProductByUrl(@PathVariable String url) {
+        Optional<Productapi> optionalProduct = apiRepository.findByProductUrl(url);
+        if (optionalProduct.isPresent()) {
+            return optionalProduct.get();
+        } else {
+            throw new RuntimeException("Product not found with URL: " + url);
+        }
+    }
+
+
 }
