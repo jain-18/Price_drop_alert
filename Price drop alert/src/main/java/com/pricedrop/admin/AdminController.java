@@ -4,6 +4,9 @@ import com.pricedrop.admin.dao.ApiRepository;
 import com.pricedrop.admin.entities.Productapi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,11 +60,31 @@ public class AdminController {
     }
     @GetMapping("/getproductbyurl/{url}")
     public Productapi getProductByUrl(@PathVariable String url) {
-        Optional<Productapi> optionalProduct = apiRepository.findByProductUrl(url);
+        System.out.println("decoded url"+decodeUrl(url));
+        Optional<Productapi> optionalProduct = apiRepository.findByProductUrl((url));
         if (optionalProduct.isPresent()) {
             return optionalProduct.get();
         } else {
             throw new RuntimeException("Product not found with URL: " + url);
+        }
+    }
+
+    public static String encodeUrl(String originalUrl) {
+        try {
+            return URLEncoder.encode(originalUrl, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // Handle encoding error
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static String decodeUrl(String encodedUrl) {
+        try {
+            return URLDecoder.decode(encodedUrl, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // Handle decoding error
+            e.printStackTrace();
+            return null;
         }
     }
 
