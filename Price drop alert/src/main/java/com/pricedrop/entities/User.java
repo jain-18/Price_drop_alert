@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @NoArgsConstructor
+@Data
 @Entity
 public class User {
     @Id
@@ -19,7 +20,7 @@ public class User {
     private String role;
     private long mno;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "user")
     private List<Product> product = new ArrayList<>();
 
 }
