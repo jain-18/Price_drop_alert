@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Product</title>
+  <link rel="stylesheet" th:href="@{/CSS/style.css}">
 </head>
 <body>
 <section style="margin: auto; width: 400px; margin-top: 100px">
@@ -18,10 +19,21 @@
   <br>
 
   <b>Add Product</b>
+  <br>
 
-  <input type="text" onkeyup="search()" class="form-control" name="" id="search-input" placeholder="Search product">
+<!--  <div class="search-container my-3 mt-3">-->
+<!--    <input type="text" onkeyup="search()" class="form-control" name="" id="search-input" placeholder="Search product">-->
+<!--    <div class="search-result">-->
+<!--      &lt;!&ndash;            result goes here&ndash;&gt;-->
+<!--    </div>-->
+
+
+  </div>
   <br>
   <form action="" th:action="@{/user/added-product}" method="post" th:object="${user}">
+
+
+
     <label>Product Url:- </label>
     <input type="text" name="p_url" required/>
     <br>
@@ -38,5 +50,6 @@
   <br>
   <a th:href="@{/user/dashboard}"> Dashboard </a>
 </section>
+<script src="" th:src="@{/javascript/script.js}"></script>
 </body>
 </html>
