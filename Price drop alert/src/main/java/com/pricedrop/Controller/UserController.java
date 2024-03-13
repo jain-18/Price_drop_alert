@@ -5,6 +5,8 @@ import com.pricedrop.dao.UserRepository;
 import com.pricedrop.entities.Product;
 import com.pricedrop.entities.User;
 import com.pricedrop.helper.Message;
+import com.pricedrop.services.ProductService;
+import com.pricedrop.services.UrlCoding;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,10 +46,16 @@ public class UserController {
         try {
             String email = principal.getName();
             User user = this.userRepository.getUserByUserName(email);
-            user.getProduct().add(product);
-            product.setUser(user);
-            this.userRepository.save(user);
-            session.setAttribute("message", new Message("Your product has been Added!!", " alert-success "));
+
+
+            if(ProductService.getCurrentPrice(UrlCoding.extractProductName(product.getP_url())) != null && product.getP_url().contains("https://www.example.com/product/")) {
+                user.getProduct().add(product);
+                product.setUser(user);
+                this.userRepository.save(user);
+                session.setAttribute("message", new Message("Your product has been Added!!", " alert-success "));
+            }else {
+                session.setAttribute("message", new Message("Wrong Url!! Try again..", " alert-danger "));
+            }
         }catch (Exception e){
             session.setAttribute("message",new Message("Something went wrong!! Try again.."," alert-danger "));
         }
@@ -71,9 +79,8 @@ public class UserController {
 
     @RequestMapping("/deleteproduct/{productID}")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public String DeleteProduct(@PathVariable("productID")String productID){
-        int pid = Integer.parseInt(productID);
-        productRepository.deleteById(pid);
+    public String DeleteProduct(@PathVariable("productID") int productID){
+        productRepository.deleteById(productID);
         return "redirect:/user/product-list";
     }
 

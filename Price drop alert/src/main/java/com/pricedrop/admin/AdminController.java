@@ -2,6 +2,7 @@ package com.pricedrop.admin;
 
 import com.pricedrop.admin.dao.ApiRepository;
 import com.pricedrop.admin.entities.Productapi;
+import com.pricedrop.services.UrlCoding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
@@ -52,6 +53,7 @@ public class AdminController {
     @GetMapping("/getproductbyname/{name}")
     public Productapi getProductByName(@PathVariable String name) {
         Optional<Productapi> optionalProduct = apiRepository.findByProductName(name);
+        System.out.println(name);
         if (optionalProduct.isPresent()) {
             return optionalProduct.get();
         } else {
@@ -59,9 +61,10 @@ public class AdminController {
         }
     }
     @GetMapping("/getproductbyurl/{url}")
-    public Productapi getProductByUrl(@PathVariable String url) {
-        System.out.println("decoded url"+decodeUrl(url));
-        Optional<Productapi> optionalProduct = apiRepository.findByProductUrl((url));
+    public Productapi getProductByUrl(@PathVariable("url") String url) {
+//        url = UrlCoding.decodeUrl(url);
+        url = "https://www.example.com/product/" + url;
+        Optional<Productapi> optionalProduct = Optional.ofNullable(apiRepository.findByProductUrl(url));
         if (optionalProduct.isPresent()) {
             return optionalProduct.get();
         } else {

@@ -18,6 +18,8 @@
   <br>
 
   <b>Add Product</b>
+
+  <input type="text" onkeyup="search()" class="form-control" name="" id="search-input" placeholder="Search product">
   <br>
   <form action="" th:action="@{/user/added-product}" method="post" th:object="${user}">
     <label>Product Url:- </label>

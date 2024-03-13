@@ -12,6 +12,6 @@ public interface ApiRepository extends JpaRepository<Productapi,Integer> {
     @Query("SELECT p FROM Productapi p WHERE p.product_name = :productName")
     Optional<Productapi> findByProductName(String productName);
     @Query("SELECT p FROM Productapi p WHERE p.product_url = :productUrl")
-    Optional<Productapi> findByProductUrl(String productUrl);
+    Productapi findByProductUrl(String productUrl);
 
 }
