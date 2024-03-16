@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -80,8 +81,22 @@ public class UserController {
     @RequestMapping("/deleteproduct/{productID}")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public String DeleteProduct(@PathVariable("productID") int productID){
-        productRepository.deleteById(productID);
+        try {
+            Optional<Product> product = this.productRepository.findById(productID);
+            Product pro = product.get();
+            User user = pro.getUser();
+            user.getProduct().remove(pro);
+            this.userRepository.save(user); // Update the user entity
+            this.productRepository.deleteById(productID); // Delete the product
+
+        } catch (Exception e) {
+            // Log the exception
+            e.printStackTrace();
+        }
+
         return "redirect:/user/product-list";
     }
+
+
 
 }

@@ -23,4 +23,14 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "user")
     private List<Product> product = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "u_id=" + u_id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", mno=" + mno +
+                '}';
+    }
 }
