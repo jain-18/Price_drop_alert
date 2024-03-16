@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item list</title>
     <style>
         table {
@@ -10,9 +12,14 @@
         }
 
         th, td {
-            padding: 10px; /* You can adjust the padding value as needed */
+            padding: 10px;
             text-align: left;
-            border-bottom: 1px solid #ddd; /* Optional: Add a bottom border for the table cells */
+            border-bottom: 1px solid #ddd;
+        }
+
+        .product-img {
+            width: 100px; /* Adjust the width of the image */
+            height: auto; /* Maintain aspect ratio */
         }
     </style>
 </head>
@@ -25,6 +32,7 @@
 <table>
     <thead>
     <tr>
+        <td>Image</td>
         <td>Id</td>
         <td>url</td>
         <td>Price</td>
@@ -33,6 +41,7 @@
     </thead>
     <tbody>
     <tr th:each="u_list : ${list}">
+        <td> <img class="product-img" th:src="@{${productService.getImageUrl(UrlCoding.extractProductName(u_list.getP_url()))}}"></img></td>
         <td th:text="${u_list.p_id}"></td>
         <td th:text="${u_list.p_url}"></td>
         <td th:text="${u_list.t_price}"></td>

@@ -71,7 +71,8 @@ public class UserController {
             User user = this.userRepository.getUserByUserName(email);
             List<Product> products = user.getProduct();
             model.addAttribute("list",products);
-
+            model.addAttribute("productService", new ProductService());
+            model.addAttribute("UrlCoding",new UrlCoding());
         }catch (Exception e){
             e.printStackTrace();
         }
