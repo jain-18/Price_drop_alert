@@ -20,7 +20,7 @@ public class Myconfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/signup","/do_register","/verify-otp","/sendOTP","/success","/fail","/error")
+                        .requestMatchers("/","/signup","/do_register","/verify-otp","/sendOTP","/success","/fail","/error","/img/**","/CSS/**","/javascript/**")
                         .permitAll().anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .httpBasic(Customizer.withDefaults())

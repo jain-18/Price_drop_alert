@@ -34,13 +34,13 @@ public class ProductCheckPrice {
 
 
 
-    @Scheduled(fixedRate = 10000)
+//    @Scheduled(fixedRate = 10000)
     public void CheckPrice() throws IOException, InterruptedException {
         List<Product> productList = productRepository.findAll();
         for(Product products : productList){
             if((products.getT_price()) >= ProductService.getCurrentPrice(UrlCoding.extractProductName(products.getP_url()))){
                 System.out.println("send notification");
-//                sendNotification(products,ProductService.getCurrentPrice(UrlCoding.extractProductName(products.getP_url())));
+                sendNotification(products,ProductService.getCurrentPrice(UrlCoding.extractProductName(products.getP_url())));
                 deleteProduct(products.getP_id());
 
         }

@@ -72,8 +72,8 @@ public class MyController {
                 "</div>";
         String to = user.getEmail();
 
-//        boolean flag = this.emailService.sendEmail(subject,message,to);
-        boolean flag = true;
+        boolean flag = this.emailService.sendEmail(subject,message,to);
+//        boolean flag = true;
         if(flag){
 
             session.setAttribute("user",user);
