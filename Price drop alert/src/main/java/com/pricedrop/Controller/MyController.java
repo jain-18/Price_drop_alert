@@ -32,12 +32,22 @@ public class MyController {
 
     @RequestMapping("/")
     public String Home(){
-        return "home";
+        return "home1";
+    }
+
+    @RequestMapping("/about")
+    public String About(){
+        return "about1";
     }
 
     @RequestMapping("/signup")
     public String SignUp(){
-        return "signup";
+        return "signup1";
+    }
+
+    @RequestMapping("/signin")
+    public String SignIn(){
+        return "signin";
     }
 
     @PostMapping("/do_register")
@@ -72,8 +82,8 @@ public class MyController {
                 "</div>";
         String to = user.getEmail();
 
-        boolean flag = this.emailService.sendEmail(subject,message,to);
-//        boolean flag = true;
+//        boolean flag = this.emailService.sendEmail(subject,message,to);
+        boolean flag = true;
         if(flag){
 
             session.setAttribute("user",user);

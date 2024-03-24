@@ -20,11 +20,16 @@ public class Myconfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/signup","/do_register","/verify-otp","/sendOTP","/success","/fail","/error","/img/**","/CSS/**","/javascript/**")
+                        .requestMatchers("/","/signup","/do_register","/verify-otp","/sendOTP","/success","/fail","/error","/img/**","/CSS/**","/javascript/**","/img/**","/home1",
+                                "/about","/signin")
                         .permitAll().anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                                .loginPage("/signin")
+                                .loginProcessingUrl("/dologin")
+                                .defaultSuccessUrl("/user/dashboard")
+                        )
                 .build();
     }
 
