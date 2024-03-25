@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css" th:href="@{/CSS/style.css}">
+    <link rel="stylesheet"  th:href="@{/CSS/style.css}">
     <script src="https://kit.fontawesome.com/75af221db3.js" crossorigin="anonymous"></script>
     <title>Register - PRICEDROP ALERT WEBSITE</title>
     <style>
@@ -46,21 +46,41 @@
             </div>
 
             <div class="form-group1">
-                <label for="registerName">Name:</label>
-                <input type="text" class="in" name="username" id="registerName" placeholder="Enter your Name"required>
+                <label >Name:</label>
+                <input type="text" class="in" name="username"
+                       id="registerName" th:classappend="${#fields.hasErrors('username') ? 'is-invalid' : ''}"
+                       placeholder="Enter your Name" required  th:value="${user.username}">
             </div>
+            <div  class="invalid-feedback" style="margin-left: 30%;margin-top: -6%;font-weight: bold;color: red;margin-bottom: 10px"
+                  th:each="e : ${#fields.errors('username')}" th:text="${e}"></div>
+
+
             <div class="form-group1">
-                <label for="registerPhone">Mobile no.:</label>
-                <input type="tel" class="in" name="mno" id="registerPhone" placeholder="Enter your Phone"required>
+                <label >Mobile no.:</label>
+                <input type="number" class="in" th:classappend="${#fields.hasErrors('mno') ? 'is-invalid' : ''}"
+                       name="mno"  id="registerPhone" th:value="${user.mno}" placeholder="Enter your Phone"required>
             </div>
+            <div  class="invalid-feedback" style="margin-left: 30%;margin-top: -6%;font-weight: bold;color: red;margin-bottom: 10px"
+                  th:each="e : ${#fields.errors('mno')}" th:text="${e}"></div>
+
+
+
             <div class="form-group1">
-                <label for="registerEmail">Email:</label>
-                <input type="email" class="in" name="email" id="registerEmail"placeholder="Enter your E-mail" required>
+                <label >Email:</label>
+                <input type="email" class="in"  name="email" th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+                       id="registerEmail"placeholder="Enter your E-mail" th:value="${user.email}" required>
             </div>
+            <div  class="invalid-feedback" style="margin-left: 30%;margin-top: -6%;font-weight: bold;color: red;margin-bottom: 10px"
+                  th:each="e : ${#fields.errors('email')}" th:text="${e}"></div>
+
             <div class="form-group1">
-                <label for="registerPassword">Password:</label>
-                <input type="password" class="in" name="password" id="registerPassword" placeholder="Enter your password"required>
+                <label >Password:</label>
+                <input type="password" class="in"  th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+                       name="password" id="registerPassword" th:value="${user.password}" placeholder="Enter your password"required>
             </div>
+            <div  class="invalid-feedback" style="margin-left: 30%;margin-top: -6%;font-weight: bold;color: red;margin-bottom: 30px"
+                  th:each="e : ${#fields.errors('password')}" th:text="${e}"></div>
+
             <!-- <div class="form-group1">
                 <input type="checkbox" id="termsCheckbox" required>
                 <label for="termsCheckbox" >I agree to the Terms and Conditions</label>
