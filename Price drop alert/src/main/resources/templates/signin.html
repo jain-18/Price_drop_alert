@@ -28,6 +28,10 @@
         <form id="loginForm" th:action="@{/dologin}" method="post" class="form">
             <h2 class="login-intro">Login</h2>
 
+            <div style="width: 90%;text-align: center;margin-bottom: 2%;margin-top: -20px" th:if="${param.logout}" class="alert alert-success">
+                <h1 style="font-weight: bold;padding-top: 10px">You Have Been Logout !!</h1>
+            </div>
+
             <div th:if="${session.message}"   class="alert alert-primary text-center" th:classappend="${session.message.type}" role="alert">
                 <p class="text-center" th:text="${session.message.content}"></p>
                 <div th:if="${session.message != null}">

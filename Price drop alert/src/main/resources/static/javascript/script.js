@@ -28,7 +28,7 @@ const search = () => {
                 console.log(data);
                 let text = `<div class='list-group'>`;
                 data.forEach((productApi) => {
-                    text += `<a href='#' class='list-group-item list-group-item-info list-group-item-action product-link' data-product-name='${productApi.product_url}'>${productApi.product_name} (${productApi.product_price})</a>`;
+                    text += `<a href='#' class='list-group-item list-group-item-info list-group-item-action product-link' data-product-url='${productApi.product_url}' data-product-name='${productApi.product_name}'>${productApi.product_name} (${productApi.product_price})</a>`;
                 });
                 text += `</div>`;
                 $(".search-result").html(text);
@@ -40,8 +40,10 @@ const search = () => {
                     e.preventDefault();
                     console.log("Product link clicked");
                     let productName = $(this).data("product-name");
+                    let productUrl = $(this).data("product-url");
                     console.log("Product name:", productName);
-                    $("input[name='p_url']").val(productName);
+                    $("input[name='p_url']").val(productUrl);
+                    $("input[name='p_name']").val(productName);
                     console.log("Value set for p_url input field:", productName);
                     $(".search-result").hide();
                 });
