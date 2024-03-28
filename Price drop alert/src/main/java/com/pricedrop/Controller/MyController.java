@@ -44,19 +44,37 @@ public class MyController {
     }
 
     @RequestMapping("/about")
-    public String About(){
-        return "about1";
+    public String About(Principal principal){
+        if(principal!=null){
+            return "redirect:/user/dashboard";
+        }
+        else {
+            return "about1";
+        }
     }
 
     @RequestMapping("/signup")
-    public String SignUp(Model model){
-        model.addAttribute("user",new User());
-        return "signup1";
+    public String SignUp(Model model,Principal principal){
+        if(principal!=null){
+            return "redirect:/user/dashboard";
+        }
+        else {
+            model.addAttribute("user",new User());
+            return "signup1";
+        }
+
     }
 
     @RequestMapping("/signin")
-    public String SignIn(){
-        return "signin";
+    public String SignIn(Principal principal){
+        if(principal!=null){
+            return "redirect:/user/dashboard";
+        }
+        else {
+            return "signin";
+        }
+
+
     }
 
     @PostMapping("/do_register")

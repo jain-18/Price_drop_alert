@@ -28,9 +28,22 @@
 
 </header>
 
+
+
+
+
 <!-- Dashboard Content -->
 
 <div class="dashboardheader">
+    <div th:if="${session.message}"   class="alert alert-primary text-center" th:classappend="${session.message.type}" role="alert">
+        <p class="text-center" th:text="${session.message.content}"></p>
+        <div th:if="${session.message != null}">
+            <!-- I consumed the message -->
+            <div th:text="${@sessionHelper.removeMessageFromSession()}">
+            </div>
+        </div>
+    </div>
+
     <h1 class=" dashboard-heading text-black">Welcome to PriceDrop Alert Dashboard</h1>
     <p class="dashboardmid-heading"> "Get instant  notifications on price drops for your favorite products with our website" </p>
 
@@ -38,6 +51,7 @@
     <a class = "text-black dashboardbtn btn-dashboard right-heading"   th:href="@{/user/product-list}" >Product Lists</a>
 
 </div>
+
 
 
 </body>

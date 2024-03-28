@@ -113,14 +113,21 @@ public class UserController {
 
     @RequestMapping("/deleteproduct/{productID}")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public String DeleteProduct(@PathVariable("productID") int productID){
+    public String DeleteProduct(@PathVariable("productID") int productID,Principal principal,HttpSession session){
         try {
             Optional<Product> product = this.productRepository.findById(productID);
-            Product pro = product.get();
-            User user = pro.getUser();
-            user.getProduct().remove(pro);
-            this.userRepository.save(user); // Update the user entity
-            this.productRepository.deleteById(productID); // Delete the product
+            if(product.get().getUser() == this.userRepository.getUserByUserName(principal.getName())){
+                Product pro = product.get();
+                User user = pro.getUser();
+                user.getProduct().remove(pro);
+                this.userRepository.save(user); // Update the user entity
+                this.productRepository.deleteById(productID); // Delete the product
+            }else {
+                session.setAttribute("message", new Message("You cannot access other's product!", "alert-danger"));
+                System.out.println("you are accessing other contact");
+                return "redirect:/user/dashboard";
+            }
+
 
         } catch (Exception e) {
             // Log the exception
@@ -132,19 +139,28 @@ public class UserController {
 
     @RequestMapping("/editproduct/{productID}")
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public String EditProduct(@PathVariable("productID") int productID,Model model,Principal principal){
+    public String EditProduct(@PathVariable("productID") int productID,Model model,Principal principal,HttpSession session){
         try{
-            //username
-            String email = principal.getName();
-            User user = this.userRepository.getUserByUserName(email);
-            model.addAttribute("user",user);
-
-            //edit
             Optional<Product> product = this.productRepository.findById(productID);
-            Product pro = product.get();
+            if(product.get().getUser() == this.userRepository.getUserByUserName(principal.getName())){
+                //username
+                String email = principal.getName();
+                User user = this.userRepository.getUserByUserName(email);
+                model.addAttribute("user",user);
+
+                //edit
+
+                Product pro = product.get();
 //            System.out.println(pro.getP_name()+" "+pro.getP_url()+" "+pro.getT_price());
-            model.addAttribute("product",pro);
-            return "edit";
+                model.addAttribute("product",pro);
+                return "edit";
+            }else {
+                session.setAttribute("message", new Message("You are the owner of that product!", "alert-danger"));
+                System.out.println("you are accessing other contact");
+                return "redirect:/user/dashboard";
+            }
+
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -157,9 +173,16 @@ public class UserController {
         try {
             String email = principal.getName();
             User user = this.userRepository.getUserByUserName(email);
-            product.setUser(user);
-            this.productRepository.save(product);
-            session.setAttribute("message", new Message("Your product has been modified!", "alert-success"));
+            if(product.getUser() == this.userRepository.getUserByUserName(principal.getName())){
+                product.setUser(user);
+                this.productRepository.save(product);
+                session.setAttribute("message", new Message("Your product has been modified!", "alert-success"));
+            }else {
+                session.setAttribute("message", new Message("You are the owner of that product!", "alert-danger"));
+                System.out.println("you are accessing other contact");
+                return "redirect:/user/dashboard";
+            }
+
 
         }catch (Exception e){
             session.setAttribute("message", new Message("Something went wrong! Please try again.", "alert-danger"));
