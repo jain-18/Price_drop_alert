@@ -157,14 +157,23 @@
 </nav>
 
 <div class="container w-125">
+    <br>
+    <div th:if="${session.message}"   class="alert alert-primary text-center" th:classappend="${session.message.type}" role="alert">
+        <p class="text-center" th:text="${session.message.content}"></p>
+        <div th:if="${session.message != null}">
+            <!-- I consumed the message -->
+            <div th:text="${@sessionHelper.removeMessageFromSession()}">
+            </div>
+        </div>
+    </div>
     <div  class="product-list-wrapper">
         <div th:each="u_list : ${list}"class="product-card">
             <img src="" th:src="@{${productService.getImageUrl(UrlCoding.extractProductName(u_list.getP_url()))}}" alt="Product Image">
             <h2 th:text="${u_list.p_name}"></h2>
             <p th:text="${u_list.t_price}"></p>
             <div class="btn-container">
-                <button>Add to Cart</button>
-                <a class="btn btn-primary" th:href="@{'/user/deleteproduct/' + ${u_list.p_id}}">Delete</a>
+                <a class="btn btn-primary btn-lg btn-block w-50" th:href="@{'/user/editproduct/' + ${u_list.p_id}}">Edit</a>
+                <a class="btn btn-danger btn-lg btn-block w-50" th:href="@{'/user/deleteproduct/' + ${u_list.p_id}}">Delete</a>
             </div>
         </div>
     </div>

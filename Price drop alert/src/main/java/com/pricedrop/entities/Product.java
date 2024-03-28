@@ -18,7 +18,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int p_id;
     @NotBlank(message = "Product name is required")
-    @Size(min = 2, max = 100, message = "Product name must be between 2 and 100 characters")
+    @Size(min = 2, max = 1000, message = "Product name must be between 2 and 100 characters")
     private String p_name;
 
     @NotBlank(message = "Product URL is required")

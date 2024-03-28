@@ -130,6 +130,44 @@ public class UserController {
         return "redirect:/user/product-list";
     }
 
+    @RequestMapping("/editproduct/{productID}")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public String EditProduct(@PathVariable("productID") int productID,Model model,Principal principal){
+        try{
+            //username
+            String email = principal.getName();
+            User user = this.userRepository.getUserByUserName(email);
+            model.addAttribute("user",user);
+
+            //edit
+            Optional<Product> product = this.productRepository.findById(productID);
+            Product pro = product.get();
+//            System.out.println(pro.getP_name()+" "+pro.getP_url()+" "+pro.getT_price());
+            model.addAttribute("product",pro);
+            return "edit";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "edit";
+    }
+
+    @RequestMapping("/edit-product")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public String Edit_Product(@ModelAttribute Product product,Principal principal,HttpSession session){
+        try {
+            String email = principal.getName();
+            User user = this.userRepository.getUserByUserName(email);
+            product.setUser(user);
+            this.productRepository.save(product);
+            session.setAttribute("message", new Message("Your product has been modified!", "alert-success"));
+
+        }catch (Exception e){
+            session.setAttribute("message", new Message("Something went wrong! Please try again.", "alert-danger"));
+
+        }
+        return "redirect:/user/product-list";
+    }
+
 
 
 }
