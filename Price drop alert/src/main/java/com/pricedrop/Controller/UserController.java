@@ -65,11 +65,16 @@ public class UserController {
                 if (isProductExistsForUser(product, user)) {
                     session.setAttribute("message", new Message("You have already added this product.", "alert-danger"));
                 } else if (ProductService.getCurrentPrice(UrlCoding.extractProductName(product.getP_url())) != null && product.getP_url().contains("https://www.example.com/product/")) {
-                    product.setT_price(Double.parseDouble(String.valueOf(product.getT_price())));
-                    user.getProduct().add(product);
-                    product.setUser(user);
-                    this.userRepository.save(user);
-                    session.setAttribute("message", new Message("Your product has been added!", "alert-success"));
+                    if(ProductService.getCurrentPrice(UrlCoding.extractProductName(product.getP_url())) <= product.getT_price() ){
+                        session.setAttribute("message", new Message("Please enter correct threshold price!!", "alert-danger"));
+                    }
+                    else {
+                        product.setT_price(Double.parseDouble(String.valueOf(product.getT_price())));
+                        user.getProduct().add(product);
+                        product.setUser(user);
+                        this.userRepository.save(user);
+                        session.setAttribute("message", new Message("Your product has been added!", "alert-success"));
+                    }
                 } else {
                     session.setAttribute("message", new Message("Invalid URL. Please try again.", "alert-danger"));
                 }
@@ -96,13 +101,14 @@ public class UserController {
             String email = principal.getName();
             User user = this.userRepository.getUserByUserName(email);
             List<Product> products = user.getProduct();
+            model.addAttribute("user",user);
             model.addAttribute("list",products);
             model.addAttribute("productService", new ProductService());
             model.addAttribute("UrlCoding",new UrlCoding());
         }catch (Exception e){
             e.printStackTrace();
         }
-        return "product_list";
+        return "product_list1";
     }
 
     @RequestMapping("/deleteproduct/{productID}")

@@ -75,7 +75,7 @@
                 <div class="form-group fs-4">
                     <label for="threshold-price">Threshold Price :</label>
                     <input type="number" th:classappend="${#fields.hasErrors('t_price') ? 'is-invalid' : ''}"
-                           class="w-100" id="threshold-price" name="t_price" placeholder="Enter Threshold Price">
+                           class="w-100" id="threshold-price" name="t_price" placeholder="Enter Threshold Price" required>
                     <div  class="invalid-feedback" th:each="e : ${#fields.errors('t_price')}" th:text="${e}">
                     </div>
                 </div>
