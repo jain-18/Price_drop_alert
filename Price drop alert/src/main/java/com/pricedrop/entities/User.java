@@ -30,7 +30,7 @@ public class User {
     private String password;
     private String role;
 
-    @Pattern(regexp = "^\\d{8,10}$", message = "Invalid mobile number. Please enter a 10-digit number.")
+    @Pattern(regexp = "^\\d{8,12}$", message = "Invalid mobile number. Please enter a 10-digit number.")
     private String mno;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "user")

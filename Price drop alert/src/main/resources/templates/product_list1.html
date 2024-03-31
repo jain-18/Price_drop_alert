@@ -169,11 +169,12 @@
     <div  class="product-list-wrapper">
         <div th:each="u_list : ${list}"class="product-card">
             <img src="" th:src="@{${productService.getImageUrl(UrlCoding.extractProductName(u_list.getP_url()))}}" alt="Product Image">
-            <h2 th:text="${u_list.p_name}"></h2>
-            <p th:text="${u_list.t_price}"></p>
+            <h3 th:text="${u_list.p_name}"></h3>
+            <h4 class="text-success" th:text="${u_list.t_price}"></h4>
+            <s><h4 class="text-danger" th:text="${productService.getCurrentPrice(UrlCoding.extractProductName(u_list.getP_url()))}"></h4></s>
             <div class="btn-container">
-                <a class="btn btn-primary btn-lg btn-block w-50" th:href="@{'/user/editproduct/' + ${u_list.p_id}}">Edit</a>
-                <a class="btn btn-danger btn-lg btn-block w-50" th:href="@{'/user/deleteproduct/' + ${u_list.p_id}}">Delete</a>
+                <a class="btn btn-primary btn btn-block w-50" th:href="@{'/user/editproduct/' + ${u_list.p_id}}">Edit</a>
+                <a class="btn btn-danger btn btn-block w-50" th:href="@{'/user/deleteproduct/' + ${u_list.p_id}}">Delete</a>
             </div>
         </div>
     </div>

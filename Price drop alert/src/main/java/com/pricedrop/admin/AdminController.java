@@ -3,11 +3,13 @@ package com.pricedrop.admin;
 import com.pricedrop.admin.dao.ApiRepository;
 import com.pricedrop.admin.entities.Productapi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @RequestMapping("/admin")
 @RestController
 public class AdminController {
