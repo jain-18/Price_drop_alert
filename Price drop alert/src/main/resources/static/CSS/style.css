@@ -26,7 +26,6 @@ body{
     font-family: 'Montserrat', sans-serif;
     line-height: 1.7;
     background: linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.05)) , url('../img/bgimg.jpg');
-
 }
 
 ul li{
@@ -1073,4 +1072,50 @@ h2 {
     padding: 2px; /* Padding for spacing */
     border-radius: 5px; /* Rounded corners for better appearance */
 }
+
+
+/* ////////////////otp verification page///////////// */
+
+
+.otp {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 35px;
+    font-weight: 600;
+
+}
+
+
+.otp_text {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    /* font-weight: 600; */
+}
+
+.enter_otp {
+    margin-top: 50px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+.verify-btn {
+    display: block;
+    width: 60%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    /* border-color: #00a1b3; */
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.verify-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Media queries for form */
+
 

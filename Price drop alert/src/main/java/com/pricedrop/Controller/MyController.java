@@ -137,8 +137,8 @@ public class MyController {
                     session.setAttribute("user",user);
                     session.setAttribute("myotp",otp);
                     session.setAttribute("email",user.getEmail());
-                    session.setAttribute("message",new Message("We have sent OTP to your email.."," alert-success "));
-                    return "verify_otp";
+//                    session.setAttribute("message",new Message("We have sent OTP to your email.."," alert-success "));
+                    return "verify_otp1";
                 }
                 else{
                     session.setAttribute("message",new Message("Enter your correct email-Id!!"," alert-danger "));
@@ -172,12 +172,12 @@ public class MyController {
                     session.setAttribute("message", new Message("Successfully Registered!!", "alert-success"));
                     return "redirect:/signup";
                 } else {
-                    session.setAttribute("message", new Message("Wrong otp", "alert-success"));
-                    return "verify_otp";
+                    session.setAttribute("message", new Message("Wrong otp", "alert-danger"));
+                    return "verify_otp1";
                 }
             } else {
-                session.setAttribute("message", new Message("Enter number only", "alert-success"));
-                return "verify_otp";
+                session.setAttribute("message", new Message("Enter number only", "alert-danger"));
+                return "verify_otp1";
             }
         }catch (Exception e){
             e.printStackTrace();
