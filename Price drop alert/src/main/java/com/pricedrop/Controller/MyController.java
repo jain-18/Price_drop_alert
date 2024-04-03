@@ -130,8 +130,8 @@ public class MyController {
                         "</div>";
                 String to = user.getEmail();
 
-//        boolean flag = this.emailService.sendEmail(subject,message,to);
-                boolean flag = true;
+        boolean flag = this.emailService.sendEmail(subject,message,to);
+//                boolean flag = true;
                 if(flag){
 
                     session.setAttribute("user",user);
@@ -142,7 +142,7 @@ public class MyController {
                 }
                 else{
                     session.setAttribute("message",new Message("Enter your correct email-Id!!"," alert-danger "));
-                    return "signup";
+                    return "signup1";
                 }
             }
             else{
@@ -152,7 +152,7 @@ public class MyController {
             }
         }catch (Exception e){
             session.setAttribute("message", new Message("Something went wrong!!", "alert-danger"));
-            return "signup";
+            return "signup1";
         }
     }
 

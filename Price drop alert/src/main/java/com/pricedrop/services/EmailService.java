@@ -32,7 +32,7 @@ public class EmailService {
             //rest of the code..
             boolean f = false;
             String from = "shubhamjain12368@gmail.com";
-            String password = "mvyx nzlb rzgd aerv";
+            String password = "leuh idhd bceo ttre";
 
             //Variable for gmail
             String host = "smtp.gmail.com";

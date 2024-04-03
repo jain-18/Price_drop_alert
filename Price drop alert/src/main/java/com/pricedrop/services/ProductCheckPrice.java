@@ -34,7 +34,7 @@ public class ProductCheckPrice {
 
 
 
-//    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 10000)
     public void CheckPrice() throws IOException, InterruptedException {
         List<Product> productList = productRepository.findAll();
         for(Product products : productList){
@@ -50,7 +50,7 @@ public class ProductCheckPrice {
     public void sendNotification(Product product,Double price){
         int u_id = product.getUser().getU_id();
         Optional<User> user = this.userRepository.findById(u_id);
-        boolean b = this.emailService.sendEmail("Price has been dropped !!","The price of the product "+UrlCoding.extractProductName(product.getP_url())+"has dropped to "+price,user.get().getEmail());
+        boolean b = this.emailService.sendEmail("Price has been dropped !!","The price of the product "+UrlCoding.extractProductName(product.getP_url())+" has dropped to "+price,user.get().getEmail());
     }
     @Transactional
     public void deleteProduct(int productID) {
