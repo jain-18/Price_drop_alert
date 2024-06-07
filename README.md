@@ -24,7 +24,6 @@ Price Drop Alert is a web application designed to empower users with real-time p
 - Backend: Spring Boot (Java)
 - Database: PostgreSQL
 - API: Amazon API (for retrieving pricing data)
-- Testing: JUnit, Mockito (for unit testing)
 
 ## Contributors
 - Sahil patil (@sahil-2411)
