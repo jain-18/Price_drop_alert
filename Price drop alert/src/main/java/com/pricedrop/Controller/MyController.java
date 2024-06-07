@@ -7,7 +7,6 @@ import com.pricedrop.services.EmailService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,7 +77,7 @@ public class MyController {
     }
 
     @PostMapping("/do_register")
-    public String registerUser(@Valid @ModelAttribute("user") User user, HttpSession session, BindingResult bindingResult){
+    public String registerUser(@Valid @ModelAttribute("user") User user, HttpSession session){
         try{
             User user1 = this.userRepository.getUserByUserName(user.getEmail());
             if(user1 == null){
@@ -120,8 +119,7 @@ public class MyController {
 
                 //write a code for send otp to email
                 String subject = "OTP for verification of email from price Drop Alert";
-                String message = "" +
-                        "<div style='border:1px solid #e2e2e2: padding:20px'>" +
+                String message = "<div style='border:1px solid #e2e2e2: padding:20px'>" +
                         "<h1>" +
                         "OTP is " +
                         "<b>" + otp +
